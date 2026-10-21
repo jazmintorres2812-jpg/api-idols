@@ -1,0 +1,10 @@
+{
+  "name": "Idols API - consulta periódica",
+  "nodes": [
+    { "parameters": { "rule": { "interval": [{ "field": "minutes", "minutesInterval": 5 }] } }, "id": "ee398a4e-2151-4a33-b4f3-9e6a76ef4082", "name": "Cada 5 minutos", "type": "n8n-nodes-base.scheduleTrigger", "typeVersion": 1.2, "position": [240, 300] },
+    { "parameters": { "url": "http://api:3000/api/idols?limit=100", "options": {} }, "id": "01fe9384-e260-4eb0-9544-e8f5a9de73fb", "name": "Consultar idols", "type": "n8n-nodes-base.httpRequest", "typeVersion": 4.2, "position": [500, 300] }
+  ],
+  "connections": { "Cada 5 minutos": { "main": [[{ "node": "Consultar idols", "type": "main", "index": 0 }]] } },
+  "active": true,
+  "settings": { "executionOrder": "v1" }
+}

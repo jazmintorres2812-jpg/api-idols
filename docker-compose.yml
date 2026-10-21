@@ -1,0 +1,57 @@
+services:
+  db:
+    image: postgres:17-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: idols_db
+      POSTGRES_USER: idols_user
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-idols_local_password}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./db/init.sql:/docker-entrypoint-initdb.d/01-init.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U idols_user -d idols_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  api:
+    build: .
+    restart: unless-stopped
+    environment:
+      PORT: 3000
+      DATABASE_URL: postgresql://idols_user:${POSTGRES_PASSWORD:-idols_local_password}@db:5432/idols_db
+      DB_SSL: "false"
+      CORS_ORIGIN: ${CORS_ORIGIN:-*}
+    ports:
+      - "3000:3000"
+    depends_on:
+      db:
+        condition: service_healthy
+
+  n8n:
+    image: docker.n8n.io/n8nio/n8n:latest
+    restart: unless-stopped
+    ports:
+      - "5678:5678"
+    environment:
+      N8N_HOST: localhost
+      N8N_PORT: 5678
+      N8N_PROTOCOL: http
+      WEBHOOK_URL: http://localhost:5678/
+      N8N_SECURE_COOKIE: "false"
+      N8N_ENCRYPTION_KEY: ${N8N_ENCRYPTION_KEY:-local-development-key-change-before-deploy}
+      TZ: ${TZ:-America/Mexico_City}
+    volumes:
+      - n8n_data:/home/node/.n8n
+      - ./n8n:/opt/n8n-import:ro
+    entrypoint: /bin/sh
+    command: -c "if [ ! -f /home/node/.n8n/.idols-workflow-imported ]; then n8n import:workflow --input=/opt/n8n-import/idols-poll.json && touch /home/node/.n8n/.idols-workflow-imported; fi; n8n start"
+    depends_on:
+      - api
+
+volumes:
+  postgres_data:
+  n8n_data:
