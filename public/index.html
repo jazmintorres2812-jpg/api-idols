@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#e84e55">
+  <title>Idols API — REST API de idols asiáticos</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Nunito+Sans:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles.css">
+  <script src="/app.js" defer></script>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="/" aria-label="Idols API inicio"><span class="brand-mark">✦</span> idols<span class="brand-light">api</span></a>
+    <nav><a class="selected" href="/">Inicio</a><a href="#about">Acerca de</a><a href="#try">API REST</a><a href="/api/idols">JSON</a></nav>
+  </header>
+  <main>
+    <section class="hero">
+      <div class="hero-inner">
+        <div class="orbit">✦</div>
+        <p class="eyebrow">MÚSICA · CULTURA · FANDOM</p>
+        <h1>Idols <span>API</span></h1>
+        <p class="hero-subtitle">La API REST de idols asiáticos</p>
+        <p class="hero-note">Explora artistas y grupos de Asia con una API sencilla y abierta.</p>
+        <a class="hero-link" href="#try">Empieza a explorar <span>↓</span></a>
+      </div>
+    </section>
+    <section class="intro" id="about">
+      <p>Información de idols en un solo lugar,<br>lista para conectar con tus proyectos.</p>
+      <span class="status"><i></i> API local en Node.js</span>
+    </section>
+    <section class="playground" id="try">
+      <div class="section-heading"><span class="kicker">EXPLORADOR</span><h2>Prueba la API</h2><p>Escribe una ruta y consulta la respuesta en vivo.</p></div>
+      <form class="request" id="request-form">
+        <span class="method">GET</span><span class="base-url" id="base-url"></span>
+        <input id="endpoint" aria-label="Ruta de API" value="/api/idols/1" spellcheck="false">
+        <button type="submit">Consultar <span>→</span></button>
+      </form>
+      <div class="hints"><span>Prueba:</span><button data-endpoint="/api/idols">todos los idols</button><button data-endpoint="/api/idols/4">/4</button><button data-endpoint="/api/idols?country=Japón">country=Japón</button><button data-endpoint="/health">health</button></div>
+      <p class="direct">URL de solicitud: <a id="direct-link" href="/api/idols/1">http://localhost:3000/api/idols/1</a></p>
+      <div class="result-heading"><div><span class="kicker">RESPUESTA</span><h3 id="result-title">Resultado</h3></div><span class="response-meta" id="response-meta">Esperando consulta</span></div>
+      <pre class="response"><code id="response-json">Pulsa “Consultar” para ver la respuesta JSON.</code></pre>
+      <div class="docs"><h3>Rutas disponibles</h3><div class="route"><code>GET /api/idols</code><span>Lista idols · admite limit, offset, country y group_name</span></div><div class="route"><code>GET /api/idols/:id</code><span>Consulta un idol por su identificador</span></div><div class="route"><code>GET /health</code><span>Estado de la API y conexión con PostgreSQL</span></div></div>
+    </section>
+  </main>
+  <footer><a class="brand" href="/">✦ idols<span class="brand-light">api</span></a><span>Hecha con Node.js, Express y PostgreSQL</span></footer>
+</body>
+</html>

@@ -2,6 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
+const path = require('path');
 const pool = require('./db');
 
 const app = express();
@@ -9,6 +10,7 @@ app.disable('x-powered-by');
 app.use(helmet());
 app.use(cors({ origin: process.env.CORS_ORIGIN === '*' ? '*' : process.env.CORS_ORIGIN?.split(',') }));
 app.use(express.json({ limit: '100kb' }));
+app.use(express.static(path.join(__dirname, '..', 'public')));
 
 app.get('/health', async (_req, res) => {
   try { await pool.query('SELECT 1'); res.json({ status: 'ok', database: 'connected' }); }

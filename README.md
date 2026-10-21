@@ -12,6 +12,7 @@ docker compose ps
 ```
 
 - API: `http://localhost:3000`
+- Página para explorar la API: `http://localhost:3000`
 - Ejemplo equivalente al patrón solicitado: `http://localhost:3000/api/idols/4`
 - Listado: `http://localhost:3000/api/idols?limit=20&offset=0`
 - Filtros: `http://localhost:3000/api/idols?country=Japón&group_name=TWICE`
