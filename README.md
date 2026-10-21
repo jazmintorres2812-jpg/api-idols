@@ -43,6 +43,6 @@ Sustituye la URL por la del repositorio que crees. No subas `.env`, contraseñas
 
 ## Render y n8n
 
-`render.yaml` define el despliegue de la API y una base PostgreSQL gestionada en Render. El plan de base configurado es de pago; revisa el costo en el Dashboard antes de aplicar el Blueprint. El servicio API usa el plan gratuito. La inicialización `db/init.sql` es solo para el contenedor local; para producción habrá que aplicar el esquema y cargar los datos iniciales en la base de Render.
+`render.yaml` define el despliegue de la API y una base PostgreSQL gestionada en Render. Al arrancar, la API aplica `db/init.sql` de forma idempotente y carga los datos de ejemplo si aún no existen. El plan de base configurado es de pago; revisa el costo en el Dashboard antes de aplicar el Blueprint. El servicio API usa el plan gratuito.
 
 Para n8n en producción usa un servicio persistente y una clave `N8N_ENCRYPTION_KEY` secreta. En el flujo desplegado, cambia `http://api:3000` por la URL pública HTTPS de la API. El compose incluido sirve para desarrollo local; no expongas su contraseña de ejemplo ni su clave n8n en producción.

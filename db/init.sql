@@ -14,6 +14,7 @@ CREATE TABLE IF NOT EXISTS idols (
 
 CREATE INDEX IF NOT EXISTS idx_idols_group_name ON idols (group_name);
 CREATE INDEX IF NOT EXISTS idx_idols_country ON idols (country);
+CREATE UNIQUE INDEX IF NOT EXISTS idx_idols_stage_name_unique ON idols (stage_name);
 
 INSERT INTO idols (stage_name, real_name, group_name, country, gender, debut_date, agency) VALUES
 ('Jungkook', 'Jeon Jung-kook', 'BTS', 'Corea del Sur', 'masculino', '2013-06-13', 'BIGHIT MUSIC'),
@@ -22,4 +23,4 @@ INSERT INTO idols (stage_name, real_name, group_name, country, gender, debut_dat
 ('Momo', 'Hirai Momo', 'TWICE', 'Japón', 'femenino', '2015-10-20', 'JYP Entertainment'),
 ('Miyawaki Sakura', 'Sakura Miyawaki', 'LE SSERAFIM', 'Japón', 'femenino', '2022-05-02', 'SOURCE MUSIC'),
 ('Jackson Wang', 'Wang Jia-er', 'GOT7', 'Hong Kong', 'masculino', '2014-01-16', 'TEAM WANG')
-ON CONFLICT DO NOTHING;
+ON CONFLICT (stage_name) DO NOTHING;

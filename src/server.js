@@ -3,6 +3,7 @@ const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
 const path = require('path');
+const fs = require('fs');
 const pool = require('./db');
 
 const app = express();
@@ -49,4 +50,14 @@ app.use((err, _req, res, _next) => {
 });
 
 const port = Number(process.env.PORT) || 3000;
-app.listen(port, '0.0.0.0', () => console.log(`Idols API escuchando en puerto ${port}`));
+async function start() {
+  try {
+    const schema = fs.readFileSync(path.join(__dirname, '..', 'db', 'init.sql'), 'utf8');
+    await pool.query(schema);
+    app.listen(port, '0.0.0.0', () => console.log(`Idols API escuchando en puerto ${port}`));
+  } catch (err) {
+    console.error('No se pudo inicializar PostgreSQL:', err.message);
+    process.exit(1);
+  }
+}
+start();
