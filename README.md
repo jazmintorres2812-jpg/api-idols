@@ -43,6 +43,6 @@ Sustituye la URL por la del repositorio que crees. No subas `.env`, contraseñas
 
 ## Render y n8n
 
-`render.yaml` define el despliegue de la API y una base PostgreSQL gestionada en Render. Al arrancar, la API aplica `db/init.sql` de forma idempotente y carga los datos de ejemplo si aún no existen. El plan de base configurado es de pago; revisa el costo en el Dashboard antes de aplicar el Blueprint. El servicio API usa el plan gratuito.
+`render.yaml` define el despliegue de la API y una base PostgreSQL gestionada en Render. Al arrancar, la API aplica `db/init.sql` de forma idempotente y carga los datos de ejemplo si aún no existen. API y base están en el plan gratuito. El plan gratuito de PostgreSQL limita el almacenamiento a 1 GB, vence a los 30 días y no tiene copias de seguridad gestionadas; tras vencer, hay 14 días para actualizar antes de que Render borre la base y sus datos. El servicio web gratuito puede dormirse con inactividad y tardar alrededor de un minuto en despertar. Consulta las [limitaciones del plan gratuito de Render](https://render.com/docs/free).
 
 Para n8n en producción usa un servicio persistente y una clave `N8N_ENCRYPTION_KEY` secreta. En el flujo desplegado, cambia `http://api:3000` por la URL pública HTTPS de la API. El compose incluido sirve para desarrollo local; no expongas su contraseña de ejemplo ni su clave n8n en producción.
